@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+echo "I TOLD YOU NOT TO INSTALL. THIS IS UNFINISHED!!!
+- elbai_codes"
+exit 1
+
 echo -e "Type your command\n"
 read command
 case $command in
