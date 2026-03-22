@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 echo "I TOLD YOU NOT TO INSTALL. THIS IS UNFINISHED!!!
-- elbai_codes"
-exit 1
+UNLESS YOU DON'T CARE ABOUT DRIVE SAFETY AND INTEGRITY
+TYPE THE NAME JOE IN ALL LOWERCASE TO PROCEED"
+read n
+if [[ "$n" =/= "joe" ]] then
+ echo "WRONG!"
+ exit 1
+fi
 
 echo -e "Type your command\n"
 read command
