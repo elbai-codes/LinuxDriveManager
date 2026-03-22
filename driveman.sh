@@ -34,4 +34,4 @@ case $command in
     exit 0
     fi
   ;;
-    
+esac
