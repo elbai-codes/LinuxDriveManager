@@ -3,7 +3,7 @@ echo "I TOLD YOU NOT TO INSTALL. THIS IS UNFINISHED!!!
 UNLESS YOU DON'T CARE ABOUT DRIVE SAFETY AND INTEGRITY
 TYPE THE NAME JOE IN ALL LOWERCASE TO PROCEED"
 read n
-if [[ "$n" =/= "joe" ]] then
+if [[ "$n" != "joe" ]]; then
  echo "WRONG!"
  exit 1
 fi
