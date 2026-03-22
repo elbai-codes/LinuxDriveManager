@@ -1,2 +1,1 @@
-# LinuxDriveManager
-drive manager for linux
+# LinuxDriveManager UNFINISHED DO NOT INSTALL
