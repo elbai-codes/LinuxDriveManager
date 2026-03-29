@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-echo -e "\e[1;31m!!! STOP !!!\e[0m"
-echo -e "\e[1;31mI WARNED YOU NOT TO RUN THIS SCRIPT!\e[0m"
-echo -e "\e[1;33mUNLESS YOU REALLY, TRULY, ABSOLUTELY DON'T CARE ABOUT YOUR DATA!\e[0m"
-echo -e "\e[1;31mTYPE THE NAME 'joe' IN ALL LOWERCASE TO PROCEED AT YOUR OWN RISK !!!\e[0m"
+echo -e "LDM v1.0.0"
+echo -e "This file is currently in the beta stage of development."
+echo -e "If you truly care for your data, please press Ctrl+C now."
+echo -e "Otherwise, type 'joe' in all lowercase to proceed."
 read n
 if [[ "$n" != "joe" ]]; then
- echo "WRONG!"
+ echo "Terminating session..."
  exit 1
 fi
 
@@ -17,21 +17,58 @@ case $command in
     ;;
   erase)
     read -ep "Which drive? " edrive
-    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO ERASE $edrive\n"
+    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO ERASE $edrive"
     read -ep "ARE YOU SURE??? (y/n) " econf
     if [[ "$econf" = "y" || "$econf" = "Y" ]]; then
       read -ep "ARE YOU SUPER SURE??? (y/n) " econf2
       if [[ "$econf2" = "y" || "$econf2" = "Y" ]]; then
-        echo -e "You asked for it...\n"
+        echo -e "Proceeding now."
         sudo dd if=/dev/zero of="$edrive" bs=4M status=progress
         exit 0
       else
-        echo "Phew, thank GOD!"
-      exit 0
+        echo "Terminating session..."
+        exit 0
       fi
     else
-      echo "Phew, thank GOD!"
-    exit 0
+      echo "Terminating session..."
+      exit 0
     fi
+    ;;
+  formt)
+    read -ep "Which drive? " fdrive
+    read -ep "Which filesystem? (ex: ext4, ntfs, etc.) " fsystem
+    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO FORMAT $fdrive"
+    read -ep "ARE YOU SURE??? (y/n) " fconf
+    if [[ "$fconf" = "y" || "$fconf" = "Y" ]]; then
+      read -ep "ARE YOU SUPER SURE??? (y/n) " fconf2
+      if [[ "$fconf2" = "y" || "$fconf2" = "Y" ]]; then
+        echo -e "Proceeding now."
+        sudo mkfs."$fsystem" "$fdrive"
+        exit 0
+      else
+        echo "Terminating session..."
+        exit 0
+      fi
+    else
+      echo "Terminating session..."
+      exit 0
+    fi
+  ;;
+  fsint)
+    read -ep "Which drive? " fsdrive
+    fsck -f "$fsdrive"
+  ;;
+  mount)
+    read -ep "Which drive? " mdrive
+    read -ep "Where to mount? " mpoint
+    sudo mount "$mdrive" "$mpoint"
+  ;;
+  umont)
+    read -ep "Which drive? " umdrive
+    sudo umount "$umdrive"
+  ;;
+  *)
+    echo "Terminating session..."
+    exit 0
   ;;
 esac
