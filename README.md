@@ -6,7 +6,10 @@ LinuxDriveManager is a utility designed to help managing drives easier. It has f
 ### List devices
 Run ``sudo bash /path/to/the/driveman.sh``, then type in ``lsblk``. This will run your system's built-in block device reader.
 ### Erase drive
-Run ``sudo bash /path/to/the/driveman.sh``, then type in ``erase``, and then a device name. It will ask you to confirm, twice. Then it will proceed to zero.
+Run ``sudo bash /path/to/the/driveman.sh``, then type in ``erase``, and then a device name.
+**WARNING**
+MUST USE PREFIX `/dev/`
+It will ask you to confirm, twice. Then it will proceed to zero.
 ### Format drive
 Run ``sudo bash /path/to/the/driveman.sh``, then type in ``formt``, and then a device name. This will ask you two things:
 1. The filesystem needed
