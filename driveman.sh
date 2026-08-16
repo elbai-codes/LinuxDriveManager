@@ -100,7 +100,7 @@ case $command in
   ;;
   fsint)
     read -ep "Which drive? " fsdrive
-    fsck -f "$fsdrive"
+    sudo fsck -f "$fsdrive"
   ;;
   mount)
     read -ep "Which drive? " mdrive
