@@ -87,7 +87,7 @@ case $command in
       read -ep "ARE YOU SUPER SURE??? (y/n) " fconf2
       if [[ "$fconf2" = "y" || "$fconf2" = "Y" ]]; then
         echo -e "Proceeding now."
-        sudo mkfs."$fsystem" "$fdrive"
+        sudo mkfs."${fsystem,,}" "$fdrive"
         exit 0
       else
         echo "Terminating session..."
