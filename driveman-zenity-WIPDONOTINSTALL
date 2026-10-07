@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+echo -e "running Linux Drive Manager v2.0.0 'Seeing Sam'"
+command=$(zenity --info \
+         --title="LDM v2.0.0" \
+         --text="choose a command to run" \
+         --ok-label="Exit" \
+         --extra-button="List Drives" \
+         --extra-button="Erase Drive" \
+         --extra-button="Format Drive" \
+         --extra-button="Check Drive Integrity" \
+         --extra-button="Mount Drive" \
+         --extra-button="Unmount Drive")
+
+case "$command" in
+  lsblk)
+    lsblk
+    ;;
+  erase)
+    read -ep "Which drive? " edrive
+    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO ERASE $edrive"
+    read -ep "ARE YOU SURE??? (y/n) " econf
+    if [[ "$econf" = "y" || "$econf" = "Y" ]]; then
+      read -ep "ARE YOU SUPER SURE??? (y/n) " econf2
+      if [[ "$econf2" = "y" || "$econf2" = "Y" ]]; then
+        echo -e "Proceeding now."
+        sudo dd if=/dev/zero of="$edrive" bs=4M status=progress
+        exit 0
+      else
+        echo "Terminating session..."
+        exit 0
+      fi
+    else
+      echo "Terminating session..."
+      exit 0
+    fi
+    ;;
+  formt)
+    read -ep "Which drive? " fdrive
+    read -ep "Which filesystem? (ex: ext4, ntfs, etc.) " fsystem
+    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO FORMAT $fdrive"
+    read -ep "ARE YOU SURE??? (y/n) " fconf
+    if [[ "$fconf" = "y" || "$fconf" = "Y" ]]; then
+      read -ep "ARE YOU SUPER SURE??? (y/n) " fconf2
+      if [[ "$fconf2" = "y" || "$fconf2" = "Y" ]]; then
+        echo -e "Proceeding now."
+        sudo mkfs."${fsystem,,}" "$fdrive"
+        exit 0
+      else
+        echo "Terminating session..."
+        exit 0
+      fi
+    else
+      echo "Terminating session..."
+      exit 0
+    fi
+  ;;
+  fsint)
+    read -ep "Which drive? " fsdrive
+    sudo fsck -f "$fsdrive"
+  ;;
+  mount)
+    read -ep "Which drive? " mdrive
+    read -ep "Where to mount? " mpoint
+    sudo mount "$mdrive" "$mpoint"
+  ;;
+  umont)
+    read -ep "Which drive? " umdrive
+    sudo umount "$umdrive"
+  ;;
+  *)
+    echo "Terminating session..."
+    exit 0
+  ;;
+esac
