@@ -12,17 +12,18 @@ command=$(zenity --info \
          --extra-button="Unmount Drive")
 
 case "$command" in
-  lsblk)
-    lsblk
+  "List Drives")
+    prqLSBLK=$(lsblk)
+    zenity --info --text="$prqLSBLK"
     ;;
-  erase)
-    read -ep "Which drive? " edrive
-    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO ERASE $edrive"
-    read -ep "ARE YOU SURE??? (y/n) " econf
+  "Erase Drive")
+    edrive=$(zenity --entry --text="Which drive?")
+    econf=$(zenity --entry --text="WARNINGWARNINGWARNING YOU ARE ABOUT TO ERASE $edrive
+ARE YOU SURE??? (y/n)")
     if [[ "$econf" = "y" || "$econf" = "Y" ]]; then
-      read -ep "ARE YOU SUPER SURE??? (y/n) " econf2
+      econf2=$(zenity --entry --text="SUPER SUPER SURE??? (y/n)")
       if [[ "$econf2" = "y" || "$econf2" = "Y" ]]; then
-        echo -e "Proceeding now."
+        zenity --info --text="Erasing"
         sudo dd if=/dev/zero of="$edrive" bs=4M status=progress
         exit 0
       else
