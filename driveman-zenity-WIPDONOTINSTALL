@@ -61,16 +61,17 @@ ARE YOU SURE??? (y/n)")
     zenity --info --text="$fsinteg"
   ;;
   mount)
-    read -ep "Which drive? " mdrive
-    read -ep "Where to mount? " mpoint
+    mdrive=$(zenity --entry --text="Which drive do you wanna mount?")
+    mpoint=$(zenity --entry --text="Where to mount?")
     sudo mount "$mdrive" "$mpoint"
+    zenity --info --text="Mounted!"
   ;;
   umont)
-    read -ep "Which drive? " umdrive
+    umdrive=$(zenity --entry --text="Which drive do you wanna unmount?")
     sudo umount "$umdrive"
   ;;
   *)
-    echo "Terminating session..."
+    zenity --info --text="Terminating session..."
     exit 0
   ;;
 esac
