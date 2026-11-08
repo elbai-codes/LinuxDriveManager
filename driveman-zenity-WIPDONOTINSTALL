@@ -35,15 +35,15 @@ ARE YOU SURE??? (y/n)")
       exit 0
     fi
     ;;
-  formt)
-    read -ep "Which drive? " fdrive
-    read -ep "Which filesystem? (ex: ext4, ntfs, etc.) " fsystem
-    echo -e "WARNINGWARNINGWARNING YOU ARE ABOUT TO FORMAT $fdrive"
-    read -ep "ARE YOU SURE??? (y/n) " fconf
+  "Format Drive")
+    fdrive=$(zenity --entry --text="Which drive to format?")
+    fsystem=$(zenity --entry --text="Which filesystem?")
+    fconf=$(zenity --entry --text="WARNINGWARNINGWARNING YOU ARE ABOUT TO FORMAT $fdrive
+ARE YOU SURE??? (y/n)"
     if [[ "$fconf" = "y" || "$fconf" = "Y" ]]; then
-      read -ep "ARE YOU SUPER SURE??? (y/n) " fconf2
-      if [[ "$fconf2" = "y" || "$fconf2" = "Y" ]]; then
-        echo -e "Proceeding now."
+      fconf2=$(zenity --entry --text="SUPER SURE??? TYPE OUT $fdrive TO CONFIRM"
+      if [[ "$fconf2" = "$fdrive" ]]; then
+        zenity --entry --text="Formatting..."
         sudo mkfs."${fsystem,,}" "$fdrive"
         exit 0
       else
