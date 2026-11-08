@@ -2,5 +2,6 @@
 !.gitignore
 !LICENSE
 !README.md
-!driveman-zenity-WIPDONOTINSTALL
+!README-zenity.md
+!driveman-zenity.sh
 !driveman.sh
