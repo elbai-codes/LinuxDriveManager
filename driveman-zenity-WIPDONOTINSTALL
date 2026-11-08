@@ -27,11 +27,11 @@ ARE YOU SURE??? (y/n)")
         sudo dd if=/dev/zero of="$edrive" bs=4M status=progress
         exit 0
       else
-        echo "Terminating session..."
+        zenity --info --text="Terminating session..."
         exit 0
       fi
     else
-      echo "Terminating session..."
+      zenity --info --text="Terminating session..."
       exit 0
     fi
     ;;
@@ -39,25 +39,26 @@ ARE YOU SURE??? (y/n)")
     fdrive=$(zenity --entry --text="Which drive to format?")
     fsystem=$(zenity --entry --text="Which filesystem?")
     fconf=$(zenity --entry --text="WARNINGWARNINGWARNING YOU ARE ABOUT TO FORMAT $fdrive
-ARE YOU SURE??? (y/n)"
+ARE YOU SURE??? (y/n)")
     if [[ "$fconf" = "y" || "$fconf" = "Y" ]]; then
-      fconf2=$(zenity --entry --text="SUPER SURE??? TYPE OUT $fdrive TO CONFIRM"
+      fconf2=$(zenity --entry --text="SUPER SURE??? TYPE OUT $fdrive TO CONFIRM")
       if [[ "$fconf2" = "$fdrive" ]]; then
         zenity --entry --text="Formatting..."
         sudo mkfs."${fsystem,,}" "$fdrive"
         exit 0
       else
-        echo "Terminating session..."
+        zenity --info --text="Terminating session..."
         exit 0
       fi
     else
-      echo "Terminating session..."
+      zenity --info --text="Terminating session..."
       exit 0
     fi
   ;;
-  fsint)
-    read -ep "Which drive? " fsdrive
-    sudo fsck -f "$fsdrive"
+  "Check Drive Integrity")
+    fsdrive=$(zenity --entry --text="Which drive do you wanna check?")
+    fsinteg=$(sudo fsck -f "$fsdrive")
+    zenity --info --text="$fsinteg"
   ;;
   mount)
     read -ep "Which drive? " mdrive
