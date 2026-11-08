@@ -60,13 +60,13 @@ ARE YOU SURE??? (y/n)")
     fsinteg=$(sudo fsck -f "$fsdrive")
     zenity --info --text="$fsinteg"
   ;;
-  mount)
+  "Mount Drive")
     mdrive=$(zenity --entry --text="Which drive do you wanna mount?")
     mpoint=$(zenity --entry --text="Where to mount?")
     sudo mount "$mdrive" "$mpoint"
     zenity --info --text="Mounted!"
   ;;
-  umont)
+  "Unmount Drive")
     umdrive=$(zenity --entry --text="Which drive do you wanna unmount?")
     sudo umount "$umdrive"
   ;;
