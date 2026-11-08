@@ -27,4 +27,4 @@ Run ``sudo bash /path/to/the/driveman.sh``, then type in ``mount``, then input t
 Run ``sudo bash /path/to/the/driveman.sh``, then type in ``umont``. This will ask you the drive to unmount.
 
 ___  
-Happy LinuxDriveManaging!
+Happy LinuxDriveManaging, you all!
